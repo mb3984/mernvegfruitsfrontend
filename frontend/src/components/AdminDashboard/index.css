@@ -1,0 +1,191 @@
+/* Root */
+.admin-dashboard {
+  padding: 20px;
+  min-height: 100vh;
+  background-color: #f5f7fb;
+}
+
+/* Title */
+.dashboard-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #1f2937;
+}
+
+/* Add Product */
+.add-product-link {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  text-decoration: none;
+}
+
+.add-product-btn {
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add-product-btn:hover {
+  background-color: #1e40af;
+}
+
+/* Status text */
+.loading-text {
+  text-align: center;
+  color: #374151;
+}
+
+.error-text {
+  text-align: center;
+  color: red;
+  font-weight: 600;
+}
+
+/* Sections */
+.dashboard-section {
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #111827;
+}
+
+/* Cards grid */
+.card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+/* User & Product cards */
+.user-card,
+.product-card {
+  background-color: #ffffff;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* User details */
+.user-name,
+.product-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.user-email,
+.product-desc,
+.product-cat {
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.user-role {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2563eb;
+}
+
+/* Buttons */
+.make-admin-btn {
+  padding: 8px;
+  background-color: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.make-admin-btn:hover {
+  background-color: #15803d;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-btn {
+  padding: 8px 12px;
+  background-color: #f59e0b;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.edit-btn:hover {
+  background-color: #d97706;
+}
+
+.delete-btn {
+  padding: 8px 12px;
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #b91c1c;
+}
+
+/* Empty text */
+.no-data-text {
+  color: #6b7280;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 768px) {
+  .dashboard-title {
+    font-size: 1.6rem;
+  }
+
+  .section-title {
+    font-size: 1.3rem;
+  }
+
+  .add-product-btn {
+    width: 100%;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-dashboard {
+    padding: 15px;
+  }
+
+  .user-card,
+  .product-card {
+    padding: 14px;
+  }
+
+  .user-name,
+  .product-name {
+    font-size: 1rem;
+  }
+}

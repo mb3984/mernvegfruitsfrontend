@@ -1,0 +1,107 @@
+/* Background */
+.add-product-bg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #eef2ff, #dbeafe);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  font-family: Arial, sans-serif;
+}
+
+/* Card */
+.add-product-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 520px;
+  padding: 28px;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+.add-product-heading {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #0b69ff;
+  margin-bottom: 20px;
+}
+
+/* Form */
+.add-product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.add-product-form input,
+.add-product-form textarea,
+.add-product-form select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.add-product-form textarea {
+  resize: none;
+  min-height: 80px;
+}
+
+.add-product-form input:focus,
+.add-product-form textarea:focus,
+.add-product-form select:focus {
+  border-color: #0b69ff;
+}
+
+/* Two-column row */
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.form-row input {
+  flex: 1;
+}
+
+/* Checkbox */
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+}
+
+/* Button */
+.submit-btn {
+  margin-top: 10px;
+  background: #0b69ff;
+  color: #ffffff;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: #0356d6;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .add-product-card {
+    padding: 20px;
+  }
+
+  .add-product-heading {
+    font-size: 1.5rem;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+}

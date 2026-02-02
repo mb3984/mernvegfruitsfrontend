@@ -1,0 +1,58 @@
+/* Page background */
+.cart-page {
+  min-height: calc(100vh - 120px);
+  background: #f9fafb;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Wrapper */
+.cart-wrapper {
+  width: 100%;
+  max-width: 1000px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Title */
+.cart-title {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2e7d32;
+}
+
+/* Empty cart alignment (works with EmptyCartView) */
+.cart-wrapper > div {
+  width: 100%;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .cart-wrapper {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .cart-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .cart-page {
+    padding: 12px;
+  }
+
+  .cart-wrapper {
+    padding: 14px;
+  }
+
+  .cart-title {
+    font-size: 1.3rem;
+  }
+}

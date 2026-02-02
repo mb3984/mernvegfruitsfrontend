@@ -1,0 +1,135 @@
+/* Background */
+.background-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  padding: 15px;
+  font-family: "Arial", sans-serif;
+}
+
+/* Card container */
+.card-container {
+  background-color: #fff;
+  padding: 30px 25px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  transition: transform 0.2s ease;
+}
+
+.card-container:hover {
+  transform: translateY(-2px);
+}
+
+/* Heading */
+.heading {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 25px;
+  color: #0b69ff;
+  font-weight: bold;
+}
+
+/* Labels */
+.card-container label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Inputs */
+.card-container input {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.card-container input:focus {
+  border-color: #0b69ff;
+}
+
+/* Password wrapper */
+.password-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.password-wrapper input {
+  flex: 1;
+}
+
+.password-wrapper span {
+  cursor: pointer;
+  color: #0b69ff;
+  font-size: 1.2rem;
+}
+
+/* Buttons */
+.card-container button {
+  width: 100%;
+  padding: 10px 15px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 6px;
+  background-color: #0b69ff;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.card-container button:hover {
+  background-color: #094ab3;
+}
+
+/* Signup button */
+.signup-btn {
+  background-color: #28a745;
+}
+
+.signup-btn:hover {
+  background-color: #1e7e34;
+}
+
+/* Error messages */
+.error-msg {
+  font-size: 0.9rem;
+  color: red;
+  margin: 3px 0;
+  text-align: left;
+}
+
+/* Signup text */
+.signup-text {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  text-align: center;
+  color: #333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .card-container {
+    padding: 25px 20px;
+  }
+
+  .heading {
+    font-size: 1.7rem;
+  }
+
+  .card-container button,
+  .signup-btn {
+    font-size: 0.95rem;
+  }
+}
