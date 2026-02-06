@@ -1,12 +1,10 @@
-/* Background */
 .add-product-bg {
   min-height: 100vh;
   background: linear-gradient(135deg, #eef2ff, #dbeafe);
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; /* horizontal center */
+  align-items: center; /* vertical center */
   padding: 16px;
-  font-family: Arial, sans-serif;
 }
 
 /* Card */

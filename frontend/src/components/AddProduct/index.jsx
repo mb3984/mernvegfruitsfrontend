@@ -66,7 +66,7 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="add-product-page">
+    <div className="add-product-bg">
       <div className="add-product-card">
         <h2 className="add-product-title">Add New Product</h2>
 
