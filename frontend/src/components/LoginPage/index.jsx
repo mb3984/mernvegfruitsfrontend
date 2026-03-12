@@ -31,6 +31,9 @@ const LoginPage = () => {
         role: data.role,
       }),
     );
+    if (data.role === "admin") {
+      navigate("/admin-dashboard");
+    }
 
     navigate("/home");
     alert("user login succesfully");
