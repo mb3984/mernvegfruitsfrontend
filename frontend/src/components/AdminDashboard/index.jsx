@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ClipLoader } from "react-spinners"; // Ensure this is installed
+import { ClipLoader } from "react-spinners";
 import {
   FiLogOut,
   FiPlus,
@@ -19,7 +19,6 @@ const AdminDashboard = () => {
 
   const navigate = useNavigate();
 
-  // 1️⃣ Logout Logic
   const handleLogout = () => {
     if (window.confirm("Are you sure you want to logout?")) {
       localStorage.removeItem("jwt_token");
@@ -27,14 +26,12 @@ const AdminDashboard = () => {
     }
   };
 
-  // 2️⃣ Fetch Users (Admin Only)
   const fetchUsers = useCallback(async () => {
     const token = localStorage.getItem("jwt_token");
     if (!token) {
       navigate("/login");
       return;
     }
-
     try {
       const res = await fetch(
         "https://mernvegfruitsbackend.onrender.com/api/users",
@@ -50,7 +47,6 @@ const AdminDashboard = () => {
     }
   }, [navigate]);
 
-  // 3️⃣ Fetch All Products (Admin View)
   const fetchProducts = useCallback(async () => {
     const token = localStorage.getItem("jwt_token");
     try {
@@ -77,11 +73,9 @@ const AdminDashboard = () => {
     loadDashboard();
   }, [fetchUsers, fetchProducts]);
 
-  // 4️⃣ Delete Product Logic
   const deleteProduct = async (id) => {
     const token = localStorage.getItem("jwt_token");
-    if (!window.confirm("Permanently delete this product?")) return;
-
+    if (!window.confirm("Delete this product?")) return;
     try {
       const res = await fetch(
         `https://mernvegfruitsbackend.onrender.com/api/products/${id}`,
@@ -92,14 +86,12 @@ const AdminDashboard = () => {
       );
       if (res.ok) {
         setProducts((prev) => prev.filter((p) => p._id !== id));
-        alert("Product removed successfully.");
       }
     } catch (err) {
       alert("Error deleting product.");
     }
   };
 
-  // 5️⃣ Role Management Logic
   const makeAdmin = async (id) => {
     const token = localStorage.getItem("jwt_token");
     try {
@@ -113,14 +105,11 @@ const AdminDashboard = () => {
           },
         },
       );
-      const data = await res.json();
       if (res.ok) {
         setUsers((prev) =>
           prev.map((u) => (u._id === id ? { ...u, role: "admin" } : u)),
         );
         alert("User promoted to Admin.");
-      } else {
-        alert(data.message);
       }
     } catch (err) {
       console.error(err);
@@ -137,29 +126,12 @@ const AdminDashboard = () => {
 
   return (
     <div className="admin-dashboard">
-      {/* HEADER SECTION */}
       <header className="dashboard-header">
         <h2 className="dashboard-title">Admin Management</h2>
         <button className="logout-btn" onClick={handleLogout}>
           <FiLogOut /> Logout
         </button>
       </header>
-
-      {/* STATS OVERVIEW (Impact Section) */}
-      <div className="stats-grid">
-        <div className="stat-card">
-          <h3>100,000+</h3>
-          <p>Total Users</p>
-        </div>
-        <div className="stat-card">
-          <h3>200,000+</h3>
-          <p>Orders Processed</p>
-        </div>
-        <div className="stat-card">
-          <h3>20,000+</h3>
-          <p>Active Inventory</p>
-        </div>
-      </div>
 
       <div className="action-bar">
         <Link to="/add-product" className="add-product-link">
@@ -171,7 +143,6 @@ const AdminDashboard = () => {
 
       {error && <p className="error-text">{error}</p>}
 
-      {/* USERS TABLE/LIST */}
       <section className="dashboard-section">
         <h3 className="section-title">
           <FiUser /> Registered Users ({users.length})
@@ -197,10 +168,9 @@ const AdminDashboard = () => {
         </div>
       </section>
 
-      {/* PRODUCTS TABLE/LIST */}
       <section className="dashboard-section">
         <h3 className="section-title">
-          <FiShoppingBag /> Inventory Management ({products.length})
+          <FiShoppingBag /> Inventory ({products.length})
         </h3>
         <div className="card-list">
           {products.map((product) => (
