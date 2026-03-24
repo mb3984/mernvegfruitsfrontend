@@ -9,64 +9,64 @@ import "./index.css";
 const UserDashboard = () => {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState(""); // 💡 For API optimization
   const [sortOrder, setSortOrder] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
 
+  // 1️⃣ Debounce Logic: Wait 500ms after typing stops before hitting API
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(searchQuery);
+      setCurrentPage(1); // 💡 Reset to page 1 when search changes
+    }, 500);
+
+    return () => clearTimeout(handler);
+  }, [searchQuery]);
+
+  // 2️⃣ Fetch Logic: Now includes 'search' in the URL
   const fetchProducts = useCallback(async () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://mernvegfruitsbackend.onrender.com/api/products?page=${currentPage}&limit=6&sort=${sortOrder}`,
+        `https://mernvegfruitsbackend.onrender.com/api/products?page=${currentPage}&limit=6&sort=${sortOrder}&search=${debouncedSearch}`,
       );
       const data = await response.json();
 
-      if (response.ok && Array.isArray(data.products)) {
+      if (response.ok && data.success) {
         setProducts(data.products);
-        setTotalItems(data.totalCount || data.products.length);
+        setTotalItems(data.totalCount);
+        setTotalPages(data.totalPages || 1);
       }
     } catch (error) {
       console.error("Error fetching products:", error);
     } finally {
       setLoading(false);
     }
-  }, [currentPage, sortOrder]);
+  }, [currentPage, sortOrder, debouncedSearch]);
 
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
 
-  useEffect(() => {
-    if (totalItems > 0) {
-      setTotalPages(Math.ceil(totalItems / 6));
-    }
-  }, [totalItems]);
-
-  // ✅ FIXED SEARCH (name + category)
-  const filteredProducts = products.filter(
-    (product) =>
-      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.category.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
-
   const goToPage = (page) => {
     setCurrentPage(page);
+    window.scrollTo(0, 0); // Scroll to top on page change
   };
 
   return (
     <div className="user-dashboard-container">
       <Navbar />
-
       <h2 className="user-dashboard-heading">Available Products</h2>
 
-      {/* 🔍 Search */}
+      {/* 🔍 Search Input */}
       <div className="user-dashboard-search">
         <input
           type="text"
           className="user-dashboard-search-input"
-          placeholder="Search by product name or category..."
+          placeholder="Search for Mango, Fruits, etc..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
@@ -79,7 +79,10 @@ const UserDashboard = () => {
           id="sort"
           className="user-dashboard-sort-select"
           value={sortOrder}
-          onChange={(e) => setSortOrder(e.target.value)}
+          onChange={(e) => {
+            setSortOrder(e.target.value);
+            setCurrentPage(1);
+          }}
         >
           <option value="">Default</option>
           <option value="asc">Low to High</option>
@@ -91,10 +94,10 @@ const UserDashboard = () => {
       <div className="user-dashboard-grid">
         {loading ? (
           <div className="user-dashboard-loader">
-            <ClipLoader color="#0b69ff" height={50} width={50} />
+            <ClipLoader color="#0b69ff" size={50} />
           </div>
-        ) : filteredProducts.length > 0 ? (
-          filteredProducts.map((product) => (
+        ) : products.length > 0 ? (
+          products.map((product) => (
             <Link
               to={`/product/${product._id}`}
               key={product._id}
@@ -107,40 +110,45 @@ const UserDashboard = () => {
                   className="user-dashboard-card-img"
                 />
                 <h3 className="user-dashboard-card-title">{product.name}</h3>
-                <p>Category: {product.category}</p>
-                <p>Price: ₹{product.pricePerKg} /kg</p>
                 <p>
-                  Stock: {product.stock} kg {product.isSeasonal && "(Seasonal)"}
+                  Category: <strong>{product.category}</strong>
                 </p>
+                <p>Price: ₹{product.pricePerKg} /kg</p>
+                <p>Stock: {product.stock} kg</p>
               </div>
             </Link>
           ))
         ) : (
           <div className="user-dashboard-no-results">
-            <p>No results found.</p>
+            <p>No products found for "{debouncedSearch}"</p>
           </div>
         )}
       </div>
 
-      {/* 📄 Pagination */}
-      <div className="user-dashboard-pagination">
-        {currentPage > 1 && (
-          <button onClick={() => goToPage(currentPage - 1)}>
+      {/* 📄 Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="user-dashboard-pagination">
+          <button
+            disabled={currentPage === 1}
+            onClick={() => goToPage(currentPage - 1)}
+            className={currentPage === 1 ? "disabled" : ""}
+          >
             <FiChevronLeft />
           </button>
-        )}
 
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
+          <span>
+            Page {currentPage} of {totalPages}
+          </span>
 
-        {currentPage < totalPages && (
-          <button onClick={() => goToPage(currentPage + 1)}>
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() => goToPage(currentPage + 1)}
+            className={currentPage === totalPages ? "disabled" : ""}
+          >
             <FiChevronRight />
           </button>
-        )}
-      </div>
-
+        </div>
+      )}
       <Footer />
     </div>
   );
