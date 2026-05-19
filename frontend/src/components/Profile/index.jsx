@@ -29,37 +29,54 @@ const Profile = () => {
       0,
     );
 
-  if (!user) return <p>Loading profile...</p>;
+  if (!user) {
+    return (
+      <div className="profile-loading">
+        <p>Loading profile...</p>
+      </div>
+    );
+  }
 
   return (
-    <div style={{ padding: "20px", maxWidth: "900px", margin: "auto" }}>
-      <h2 style={{ textAlign: "center" }}>Your Profile</h2>
+    <div className="profile-bg">
+      <div className="profile-card">
+        <h2 className="profile-heading">Your Profile</h2>
 
-      <h3 style={{ textAlign: "center" }}>
-        Welcome {user.name} ({user.role})
-      </h3>
+        <div className="profile-info">
+          <span className="profile-role">{user.role}</span>
+          <h3>
+            Welcome, <span>{user.name}</span>
+          </h3>
+          <p className="profile-email">{user.email}</p>
+        </div>
 
-      <p style={{ textAlign: "center", color: "gray" }}>{user.email}</p>
+        <div className="order-section">
+          <h4>Recently Ordered Items</h4>
 
-      <h4>Recently Ordered Items</h4>
+          {recentOrder.items.length === 0 ? (
+            <p className="no-orders">No recent orders found.</p>
+          ) : (
+            <>
+              <p className="order-date">
+                <strong>Order Date:</strong> {recentOrder.timestamp}
+              </p>
 
-      {recentOrder.items.length === 0 ? (
-        <p>No recent orders.</p>
-      ) : (
-        <>
-          <p>
-            <strong>Order Date:</strong> {recentOrder.timestamp}
-          </p>
+              <div className="order-items">
+                {recentOrder.items.map((item, index) => (
+                  <div key={index} className="order-item">
+                    <span className="item-name">{item.name}</span>
+                    <span className="item-qty">
+                      ₹{item.price} × {item.quantity}
+                    </span>
+                  </div>
+                ))}
+              </div>
 
-          {recentOrder.items.map((item, index) => (
-            <p key={index}>
-              {item.name} – ₹{item.price} × {item.quantity}
-            </p>
-          ))}
-
-          <p style={{ fontWeight: "bold" }}>Total: ₹{calculateTotal()}</p>
-        </>
-      )}
+              <p className="order-total">Total: ₹{calculateTotal()}</p>
+            </>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
